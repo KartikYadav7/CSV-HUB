@@ -13,9 +13,8 @@ const origins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173').split(','
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors({
-  origin: (origin, cb) => (!origin || origins.includes(origin) ? cb(null, true) : cb(new AppError(403, 'CORS_BLOCKED', 'Origin not allowed.'))),
-  methods: ['GET', 'POST', 'DELETE'],
-  maxAge: 600,
+  origin: origins,
+  credentials: true,
 }));
 app.use(express.json({ limit: '100kb' }));
 
